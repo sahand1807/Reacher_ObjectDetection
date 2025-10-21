@@ -3,28 +3,27 @@ SAC TRAINING SUMMARY - REACHER OBJECT DETECTION
 ======================================================================
 
 Training Configuration:
-  Start time: 2025-10-20 18:10:10
-  End time: 2025-10-20 18:27:22
-  Duration: 0:17:12.402275
-  Total timesteps: 72,655
+  Start time: 2025-10-20 19:18:05
+  End time: 2025-10-20 20:13:09
+  Duration: 0:55:03.864996
+  Total timesteps: 430,320
   YOLO detection: Enabled
   Seed: 42
+  Initial collision check: ENABLED
 
 Hyperparameters:
+  Parallel environments: 4
   Learning rate: 0.0003
   Batch size: 256
-  Buffer size: 1,000,000
+  Buffer size: 500,000
   Gamma: 0.99
   Tau: 0.005
   Device: mps
 
-Final Evaluation (50 episodes):
-  Mean reward: -125.54 ± 136.52
-  Success rate: 20.0%
-  Mean episode length: 45.3 steps
-  Mean final distance: 8.90 cm
-
 Model Locations:
-  Best model: ./models/sac/best_model.zip
   Final model: ./models/sac/final_model.zip
+  Checkpoints: ./models/sac/checkpoint_*.zip
   TensorBoard logs: ./logs/sac
+
+Note: Run evaluation script separately:
+  python scripts/eval_sac_agent.py --model ./models/sac/final_model.zip
