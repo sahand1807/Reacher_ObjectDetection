@@ -1,0 +1,29 @@
+======================================================================
+YOLO Coordinate Validation Report
+======================================================================
+
+Model Information:
+  YOLO model: results/yolo/train/weights/best.pt
+  Validation samples: 100
+
+Error Statistics (meters):
+  Mean:       0.000262 m (0.262 mm)
+  Std dev:    0.000114 m (0.114 mm)
+  Median:     0.000276 m (0.276 mm)
+  Min:        0.000028 m (0.028 mm)
+  Max:        0.000486 m (0.486 mm)
+  95th %%ile: 0.000448 m (0.448 mm)
+
+Accuracy by Threshold:
+  Within 0.5 cm: 100.0%
+  Within 1.0 cm: 100.0%
+  Within 2.0 cm: 100.0%
+  Within 5.0 cm: 100.0%
+
+Component-wise Analysis:
+  X-axis mean error: 0.000183 m (0.183 mm)
+  Y-axis mean error: 0.000152 m (0.152 mm)
+
+Interpretation:
+  ✓ Excellent coordinate accuracy (< 5mm mean error)
+  ✓ Suitable for SAC training (95% within 2cm)

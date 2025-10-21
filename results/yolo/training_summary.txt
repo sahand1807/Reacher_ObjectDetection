@@ -1,0 +1,32 @@
+======================================================================
+YOLOv10-small Training Summary
+Red Box Detection for Reacher Environment
+======================================================================
+
+Dataset:
+  Training samples: 5000
+  Validation samples: 1000
+  Classes: 1 (red_box)
+
+Model Configuration:
+  Architecture: yolov10s
+  Device: mps
+  Image size: 416
+  Batch size: 8
+  Epochs: 30
+
+Performance Metrics:
+  mAP@0.5: 0.9950
+  mAP@0.5-0.95: 0.9196
+  Precision: 1.0000
+  Recall: 1.0000
+
+Inference Speed:
+  Average time: 16.46 ms
+  Throughput: 60.8 FPS
+
+Files:
+  Best model: results/yolo/train/weights/best.pt
+  Last model: results/yolo/train/weights/last.pt
+  Training curves: results/yolo/train/results.png
+  Confusion matrix: results/yolo/train/confusion_matrix.png

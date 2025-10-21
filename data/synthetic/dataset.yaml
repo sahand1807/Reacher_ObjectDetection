@@ -1,0 +1,6 @@
+names:
+  0: red_box
+nc: 1
+path: /Users/sahand/PortfolioProjects/Reacher_ObjectDetection/data/synthetic
+train: images/train
+val: images/val

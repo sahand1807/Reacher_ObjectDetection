@@ -1,0 +1,98 @@
+# Training Configuration for Reacher Object Detection
+
+# Device Configuration (Apple M2 GPU)
+device: "mps"  # Use Metal Performance Shaders for M2 acceleration
+
+# YOLO Configuration
+yolo:
+  model: "yolov10s"  # YOLOv10-small
+  imgsz: 416  # Reduced from 640 for faster training
+  batch: 8    # Reduced from 16 for faster training
+  epochs: 30  # Reduced from 100 for initial testing
+  patience: 20
+  device: "mps"
+  workers: 4
+  cache: true  # Cache images in RAM for faster training
+  project: "models/yolo"
+  name: "reacher_box_detector"
+
+  # Data augmentation
+  augment:
+    hsv_h: 0.015
+    hsv_s: 0.7
+    hsv_v: 0.4
+    degrees: 0.0
+    translate: 0.1
+    scale: 0.5
+    flipud: 0.0
+    fliplr: 0.5
+    mosaic: 1.0
+
+# SAC Configuration
+sac:
+  device: "mps"
+  seed: 42  # Random seed for reproducibility
+
+  # Training speed optimizations
+  n_envs: 4  # Number of parallel environments (4x speedup)
+  total_timesteps: 1000000  # Full 1M steps (no early stopping)
+
+  # Optimized hyperparameters
+  learning_rate: 0.0003
+  buffer_size: 500000  # Reduced from 1M (less memory, faster)
+  learning_starts: 5000  # Reduced from 10k (start learning earlier)
+  batch_size: 256
+  tau: 0.005
+  gamma: 0.99
+  train_freq: 1
+  gradient_steps: 1
+  tensorboard_log: "./logs/sac"
+  verbose: 1
+
+  # Model saving
+  save_path: "./models/sac"
+  checkpoint_freq: 50000  # Save every 50k steps
+
+  # Evaluation during training
+  eval_freq: 5000  # Evaluate every 5k steps
+  n_eval_episodes: 10
+
+  # Early stopping - DISABLED
+  early_stopping_threshold: 100.0  # Set to 100% to effectively disable
+  early_stopping_patience: 100
+
+# Environment Configuration
+environment:
+  env_id: "ReacherObjectDetection-v0"
+  render_mode: null
+  max_episode_steps: 50
+
+  # Reacher parameters
+  reach_radius: 0.2  # Maximum reach (L1 + L2)
+
+  # Camera configuration
+  camera:
+    name: "top_view"
+    pos: [0, 0, 0.5]  # Top-down position
+    fovy: 45
+
+  # Red box configuration
+  box:
+    size: [0.02, 0.02, 0.02]  # 2cm cube
+    rgba: [1.0, 0.0, 0.0, 1.0]  # Pure red
+    mass: 0.001
+    spawn_radius_min: 0.05
+    spawn_radius_max: 0.18  # Within reach
+
+  # Reward configuration
+  reward:
+    distance_weight: -1.0
+    fingertip_bonus: 10.0
+    arm_contact_penalty: -5.0
+
+# Dataset Configuration
+dataset:
+  train_size: 5000
+  val_size: 1000
+  test_size: 500
+  seed: 42
